@@ -23,7 +23,10 @@
 
 #include "Well.hpp"
 
+// #include <boost/tr1/tr1/unordered_set>
+#include <boost/unordered/unordered_set_fwd.hpp>
 #include <boost/unordered_set.hpp>
+#include <set>
 #include <boost/functional/hash.hpp>
 
 namespace Bastet{
@@ -31,7 +34,7 @@ namespace Bastet{
   static const long GameOverScore=-1000; //bogus score assigned to combinations which cause game over
   
 //  declared in Well.hpp
-  long Evaluate(const Well *w, int extralines=0); //assigns a score to a position w + a number of extra lines deleted while getting there
+//  long Evaluate(const Well *w, int extralines); //assigns a score to a position w + a number of extra lines deleted while getting there
 
   typedef BlockPosition Vertex;
 
@@ -74,7 +77,8 @@ namespace Bastet{
   public:
     Searcher(BlockType b, const Well *well, Vertex v, WellVisitor *visitor);
   private:
-    boost::unordered_set<Vertex> _visited;
+    //std::tr1::unordered_set<Vertex> _visited;
+	boost::unordered_set<Vertex> _visited;
     //std::set<Vertex> _visited; ^^ the above is more efficient, we need to do many inserts
     BlockType _block;
     const Well *_well;

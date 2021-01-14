@@ -33,30 +33,30 @@ using namespace std;
 using namespace boost;
 
 namespace Bastet{
-  long Evaluate(const Well *w, int extralines){
-    //computes the score for a final position reached in the well + "extralines" lines cleared
-    //high=good for the player
+  // long Evaluate(const Well *w, int extralines){
+  //   //computes the score for a final position reached in the well + "extralines" lines cleared
+  //   //high=good for the player
 
-    //lines
-    long score=100000000*extralines;
+  //   //lines
+  //   long score=100000000*extralines;
 
-    //adds a bonus for each "free" dot above the occupied blocks profile
-    std::bitset<WellWidth> occupied;
-    occupied.reset();
-    BOOST_FOREACH(WellLine l,w->_well){
-      occupied = occupied & l;
-      score+=10000*(WellWidth-occupied.count());
-    }
+  //   //adds a bonus for each "free" dot above the occupied blocks profile
+  //   std::bitset<WellWidth> occupied;
+  //   occupied.reset();
+  //   BOOST_FOREACH(WellLine l,w->_well){
+  //     occupied = occupied & l;
+  //     score+=10000*(WellWidth-occupied.count());
+  //   }
 
-    //adds a bonus for lower max height of the occupied blocks
-    int height=RealWellHeight;
-    BOOST_FOREACH(WellLine l, w->_well){
-      if(l.any()) break;
-      height--;
-    }
-    score+= 1000 * (RealWellHeight-height);
-    return score;
-  }
+  //   //adds a bonus for lower max height of the occupied blocks
+  //   int height=RealWellHeight;
+  //   BOOST_FOREACH(WellLine l, w->_well){
+  //     if(l.any()) break;
+  //     height--;
+  //   }
+  //   score+= 1000 * (RealWellHeight-height);
+  //   return score;
+  // }
 
   BastetBlockChooser::BastetBlockChooser(){
   }

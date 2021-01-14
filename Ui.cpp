@@ -482,7 +482,6 @@ namespace Bastet{
   }
 
   void Ui::Play(BlockChooser *bc){
-    _level=0;
     _points=0;
     _lines=0;
     BOOST_FOREACH(ColorWellLine &a, _colors)

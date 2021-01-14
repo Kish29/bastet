@@ -25,6 +25,7 @@
 #include <vector>
 #include <bitset>
 #include <boost/array.hpp>
+#include <boost/foreach.hpp>
 
 //DBG
 #include <iostream>
@@ -66,7 +67,32 @@ namespace Bastet{
     LinesCompleted Lock(BlockType t, const BlockPosition &p); //permanently adds a tetromino to the well; returns a bitset of 4 bits where return[i]==1 iff line (start of fb)+i is complete
     void ClearLines(const LinesCompleted &lc); //removes the given lines from the well (whether they are completed or not)
     int LockAndClearLines(BlockType t, const BlockPosition &p); //locks, clear lines, returns number of lines cleared
-    friend long Evaluate(const Well *w, int extralines); //for BastetBlockChooser
+    // friend long Evaluate(const Well *w, int extralines=0); //for BastetBlockChooser
+    friend long Evaluate(const Well *w, int extralines=0) {//for BastetBlockChooser
+		//computes the score for a final position reached in the well + "extralines" lines cleared
+    	//high=good for the player
+
+    	//lines
+    	long score=100000000*extralines;
+
+    	//adds a bonus for each "free" dot above the occupied blocks profile
+    	std::bitset<WellWidth> occupied;
+    	occupied.reset();
+
+    	BOOST_FOREACH(WellLine l,w->_well){
+    	  occupied = occupied & l;
+    	  score+=10000*(WellWidth-occupied.count());
+    	}
+
+    	//adds a bonus for lower max height of the occupied blocks
+    	int height=RealWellHeight;
+    	BOOST_FOREACH(WellLine l, w->_well){
+    	  if(l.any()) break;
+    	  height--;
+    	}
+    	score+= 1000 * (RealWellHeight-height);
+    	return score;
+	}
     std::string PrettyPrint() const;
   };
   

@@ -2,6 +2,7 @@ SOURCES=Ui.cpp Block.cpp Well.cpp BlockPosition.cpp Config.cpp BlockChooser.cpp 
 MAIN=main.cpp
 TESTS=Test.cpp
 PROGNAME=bastet
+TESTFILE=Test
 BOOST_PO?=-lboost_program_options
 LDFLAGS+=-lncurses $(BOOST_PO)
 #CXXFLAGS+=-ggdb -Wall
@@ -23,7 +24,7 @@ $(PROGNAME): $(SOURCES:.cpp=.o) $(MAIN:.cpp=.o)
 	$(CXX) -ggdb -o $(PROGNAME) $(SOURCES:.cpp=.o) $(MAIN:.cpp=.o) $(LDFLAGS) 
 
 clean:
-	rm -f $(SOURCES:.cpp=.o) $(TESTS:.cpp=.o) $(MAIN:.cpp=.o) $(PROGNAME)
+	rm -f $(SOURCES:.cpp=.o) $(TESTS:.cpp=.o) $(MAIN:.cpp=.o) $(PROGNAME) $(TESTFILE)
 
 mrproper: clean
 	rm -f *~
